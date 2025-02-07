@@ -1,0 +1,17 @@
+<script>
+  "use strict"
+  let user = {
+    name: "john",
+    surname: "smith",
+
+    get fullName() {
+      return `${this.name} ${this.surname}`;
+    },
+
+    set fullName(value) {
+      [this.name, this.surname] = value.split(' ');
+    }
+  }
+
+  user.fullName = "Alice Cooper";
+</script>

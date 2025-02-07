@@ -1,0 +1,64 @@
+<script>
+  function Class() {
+    class Animal {
+      constructor(name) {
+        this.speed = 0
+        this.name = name
+      }
+      run(speed) {
+        this.speed = speed
+        alert(`${this.name} runs with speed ${this.speed}.`)
+      }
+      stop() {
+        this.speed = 0
+        alert(`${this.name} stands still.`)
+      }
+    }
+
+    let animal = new Animal('My animal')
+
+
+    class Rabbit extends Animal {
+      constructor(name, earLength) {
+        super(name)
+        this.earLength = earLength
+      }
+      hide() {
+        alert(`${this.name} hides!`)
+      }
+      stop() {
+        super.stop()
+        this.hide()
+      }
+    }
+
+    let rabbit = new Rabbit('White Rabbit', 10)
+  }
+
+  function Class1() {
+    let animal = {
+      name: "Animal",
+      eat() {
+        alert(`${this.name} eats.`);
+      }
+    };
+
+    let rabbit = {
+      __proto__: animal,
+      eat() {
+        // ...bounce around rabbit-style and call parent (animal) method
+        this.__proto__.eat.call(this); // (*)
+      }
+    };
+
+    let longEar = {
+      __proto__: rabbit,
+      eat() {
+        // ...do something with long ears and call parent (rabbit) method
+        this.__proto__.eat.call(this); // (**)
+      }
+    };
+
+    longEar.eat(); // Error: Maximum call stack size exceeded
+  }
+</script>

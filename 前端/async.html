@@ -1,0 +1,11 @@
+<script>
+  // 异步函数返回一个Promise对象
+  async function timeout() {
+    return 'helloworld';
+  }
+
+  timeout().then(resolve =>{
+    console.log(resolve);
+  })
+  console.log('我在异步函数后，但会先执行我')
+</script>

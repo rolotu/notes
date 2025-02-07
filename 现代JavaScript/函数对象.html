@@ -1,0 +1,50 @@
+<script>
+  function ask(question, ...handlers) {
+    let isYes = confirm(question);
+
+    for (let handler of handlers) {
+      console.log(handler.length)
+      if (handler.length == 0) {
+        if (isYes) handler();
+      } else {
+        handler(isYes);
+      }
+    }
+
+  }
+
+  // 正向回答，两个 handler 都会被调用
+  // 负向回答，只有个第二个被调用
+  // ask("Question?", () => alert('You said yes'), result => alert(result));
+
+  function makeCounter() {
+    let count = 0
+
+    function counter() {
+      return count++;
+    };
+
+    counter.set = value => count = value;
+
+    counter.decrease = () => count--;
+
+    return counter;
+  }
+
+  let counter = makeCounter();
+
+  function sum(a){
+    let currentSum = a;
+
+    function f(b) {
+      currentSum += b;
+      return f;
+    }
+
+    f.toString = function() {
+      return currentSum;
+    }
+
+    return f;
+  }
+</script>

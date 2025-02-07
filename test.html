@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <svg width="360" height="300" xmlns="http://www.w3.org/2000/svg">
+    <g>
+        <!-- 点击后 运行transform旋转动画，restart="never"表示只运行一次 -->
+        <animateTransform attributeName="transform" type="rotate" begin="click" dur="0.5s" from="0 100 80" to="360 100 80"  fill="freeze" restart="never" />
+        <g>
+            <text font-family="microsoft yahei" font-size="20" x="50" y="80">
+                凹凸实验室
+            </text>
+        </g>
+        <g style="opacity: 0;">
+            <!-- 同一个初始位置以及大致的宽高，触发点击事件 -->
+            <text font-family="microsoft yahei" font-size="20" x="50" y="80">https://aotu.io/</text>
+            <!-- 点击后 运行transform移动动画，改变文本的位置 -->
+            <animateTransform attributeName="transform" type="translate" begin="click" dur="0.1s" to="0 40"  fill="freeze" restart="never" />
+            <!-- 点击0.5秒后 运行opacity显示动画 -->
+            <animate attributeName="opacity" begin="click+0.5s" from="0" to="1" dur="0.5s" fill="freeze" restart="never" />
+        </g>
+    </g>
+</svg>
+</body>
+
+</html>

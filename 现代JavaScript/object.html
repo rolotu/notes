@@ -1,0 +1,27 @@
+<script>
+    // let obj1 = new Object(); // 构造函数 语法
+    // let obj2 = {}; // 字面量 语法
+
+    function isEmpty(obj) {
+        for (let i in obj) {
+            return false;
+        }
+        return true;
+    }
+
+    function compute_salary(obj) {
+        let count = 0;
+        for (let i in obj) {
+            count += obj[i]
+        }
+        return count;
+    }
+
+    function multiplyNumer(obj) {
+        for (let i in obj) {
+            if (typeof obj[i] !== "number") continue;
+
+            obj[i] *= 2;
+        }
+    }
+</script>

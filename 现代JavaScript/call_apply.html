@@ -1,0 +1,173 @@
+<script>
+  function slow(x) {
+    alert(`Called with ${x}`);
+    return x;
+  }
+
+  function cachingDecorator(func) {
+    let cache = new Map();
+
+    return function (x) {
+      if (cache.has(x)) {
+        return cache.get(x);
+      }
+
+      let result = func(x);
+
+      cache.set(x, result);
+      return result;
+    }
+  }
+
+
+  slow = cachingDecorator(slow);
+
+  (() => {
+    let worker = {
+      slow(min, max) {
+        alert(`Called with ${min},${max}`);
+        return min + max;
+      }
+    }
+
+    function cachingDecorator(func, hash) {
+      let cache = new Map();
+
+      return function () {
+        let key = hash(arguments);
+        if (cache.has(key)) {
+          return cache.get(key);
+        }
+        let result = func.apply(this, arguments);
+
+        cache.set(key, result);
+        return result;
+      }
+    }
+
+    function hash() {
+      return [].join().call(arguments);
+    }
+
+    worker.slow = cachingDecorator(worker.slow, hash)
+  })();
+
+  (() => {
+    // 间谍装饰器
+
+    function work(a, b) {
+      alert(a + b);
+    }
+
+    work = spy(work);
+
+    // work(1, 2);
+    // work(4, 5);
+
+    function spy(func) {
+
+      function wrapper(...args) {
+        wrapper.calls.push(args);
+        return func.apply(this, arguments);
+      }
+
+      wrapper.calls = [];
+
+      return wrapper;
+    }
+  })();
+
+  (() => {
+    // 延迟装饰器
+
+    function f(x) {
+      alert(x);
+    }
+
+    let f1000 = delay(f, 1000);
+    let f1500 = delay(f, 1500);
+
+    // f1000("test")
+    // f1500("test")
+
+    function delay(f, ms) {
+
+      return function () {
+        setTimeout(() => {
+          f.apply(this, arguments);
+        }, ms);
+      }
+    }
+  })();
+
+  (() => {
+    // 去抖装饰器
+
+    let f = debounce(alert, 1000);
+
+    // f(1); // 立即执行
+    // f(2); // 忽略
+
+    // setTimeout(() => f(3), 100); // 忽略（只过去了 100 ms）
+    // setTimeout(() => f(4), 1100); // 运行
+    // setTimeout(() => f(5), 1500); // 忽略（离上一次执行不超过 1000 ms）
+
+    function debounce(f, ms) {
+
+      let isCooldown = false;
+
+      return function () {
+        if (isCooldown) return;
+
+        f.apply(this, arguments);
+
+        isCooldown = true;
+
+        setTimeout(() => isCooldown = false, ms);
+      }
+    }
+  })();
+
+  (() => {
+    // 节流装饰器
+
+    function f(a) {
+      console.log(a)
+    };
+
+    // f1000 passes calls to f at maximum once per 1000 ms
+    let f1000 = throttle(f, 1000);
+
+    f1000(1); // shows 1
+    f1000(2); // (throttling, 1000ms not out yet)
+    f1000(3); // (throttling, 1000ms not out yet)
+
+    function throttle(func, ms) {
+      let isThrottled = false,
+        savedArgs,
+        savedThis;
+
+      function wrapper() {
+        if (isThrottled) {
+          savedArgs = arguments;
+          savedThis = this;
+          return;
+        }
+
+        func.apply(this, arguments);
+
+        isThrottled = true;
+
+        setTimeout(() => {
+          isThrottled = false;
+          if (savedArgs) {
+            wrapper.apply(savedThis, savedArgs);
+            savedArgs = savedThis = null;
+          }
+        }, ms);
+      }
+
+      return wrapper;
+    }
+  })();
+</script>

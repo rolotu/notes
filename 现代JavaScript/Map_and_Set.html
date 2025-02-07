@@ -1,0 +1,95 @@
+<script>
+  let map = new Map();
+
+  map.set('1', 'str1')
+  map.set(1, 'num1')
+  map.set(true, 'bool1')
+
+  ;(() => {
+    let recipeMap = new Map([
+      ['cucumber', 500],
+      ['tomatoes', 350],
+      ['onion',    50]
+    ]);
+    // recipeMap.forEach((value, key, map) => {
+    //   console.log(value)
+    //   console.log(key)
+    //   console.log(map)
+    // })
+  })()
+
+  ;(() => {
+    let set = new Set();
+
+    let john = { name: "John" };
+    let pete = { name: "Pete" };
+    let mary = { name: "Mary" };
+
+
+    set.add(john).add(pete).add(john).add(mary)
+
+    // for(let el of set) {
+    //   console.log(el)
+    // }
+  })()
+
+  ;(() => {
+    let values = ["Hare", "Krishna", "Hare", "Krishna",
+      "Krishna", "Krishna", "Hare", "Hare", ":-O"
+    ];
+    function unique(arr) {
+      /* 你的代码 */
+      return Array.from(new Set(arr));
+    }
+    // console.log( unique(values) );
+  })()
+
+  ;(() => {
+    let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+
+    function aclean(arr) {
+      let map = new Map();
+      for(let el of arr) {
+        let sorted = el.toLowerCase().split('').sort().join('');
+        map.set(sorted, el);
+      }
+
+      return Array.from(map.values());
+    }
+    // console.log(aclean(arr))
+  })()
+
+  ;(() => {
+    let messages = [
+      {text: "Hello", from: "John"},
+      {text: "How goes?", from: "John"},
+      {text: "See you soon", from: "Alice"}
+    ];
+    
+    let readMessages = new WeakSet();
+
+    readMessages.add(messages[0])
+    readMessages.add(messages[1])
+
+    readMessages.add(messages[0])
+    // console.log(readMessages.has(messages[1]))
+    messages.shift();
+    // console.log(readMessages.has(messages[1]))
+
+    // alert("Read message 0: " + readMessages.has(messages[0])); // true
+  })()
+
+  ;(() => {
+    let messages = [
+      {text: "Hello", from: "John"},
+      {text: "How goes?", from: "John"},
+      {text: "See you soon", from: "Alice"}
+    ];
+
+    let readMap = new WeakMap();
+
+    readMap.set(messages[0], new Date());
+    
+    // console.log(readMap.has(messages[0]));
+  })()
+</script>

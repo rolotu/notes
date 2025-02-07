@@ -1,0 +1,14 @@
+<body>
+  <button>click</button>
+</body>
+<script>
+document.querySelector('button').addEventListener('click', function () {
+  console.log('bubble')
+})
+document.querySelector('button').addEventListener('click', function () {
+  console.log('capture')
+}, true)
+// 执行结果
+// buble
+// capture
+</script>

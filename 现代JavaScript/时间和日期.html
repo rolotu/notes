@@ -1,0 +1,110 @@
+<script>
+  let jao01_1970 = new Date(0); //Thu Jan 01 1970 07:30:00 GMT+0730 (新加坡标准时间)
+  let jao02_1970 = new Date(24 * 3600 * 1000); // Fri Jan 02 1970 07:30:00 GMT+0730 (新加坡标准时间)
+
+  const nowDate = new Date();
+  let time = nowDate.getTime(); // 获取时间戳
+  let year = nowDate.getFullYear(); // 获取年份
+  let month = nowDate.getMonth(); // 获取月份 0-11
+  let date = nowDate.getDate(); // 获取日期
+  let day = nowDate.getDay(); // 获取一周的第几天 0-6
+  let hours = nowDate.getHours(); // 获取时
+  let minutes = nowDate.getMinutes(); // 获取分
+  let seconds = nowDate.getSeconds(); //  获取秒
+  let milliseconds = nowDate.getMilliseconds(); // 获取毫秒
+
+  !(() => {
+    let start = Date.now();
+
+    // console.log(` The loop took ${end - start} ms`);
+
+    for (let i = 0; i < 100000; i++) {
+      let doSomething = i * i * i;
+    }
+
+    let end = Date.now();
+
+  })()
+
+  !(() => {
+    // 许多天之前是该月的哪一天？
+    let date = new Date(2015, 0, 2);
+
+    // console.log(getDateAgo(date, 1));
+
+    function getDateAgo(date, days) {
+      let dateCopy = new Date(date);
+
+      dateCopy.setDate(date.getDate() - days)
+      return dateCopy.getDate();
+    }
+  })()
+
+  !(() => {
+    // 某月的最后一天？
+
+    // console.log(getLastDayOfMonth(2012, 1))
+
+    function getLastDayOfMonth(year, month) {
+      let date = new Date(year, month, 0);
+      return date.getDate();
+    }
+  })()
+
+  !(() => {
+    // 今天过去了多少秒？
+
+    // console.log(getSecondsToday())
+
+    function getSecondsToday() {
+      let d = new Date();
+      return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds()
+    }
+  })()
+
+  !(() => {
+    // 距离明天还有多少秒？
+
+    function getSecondsToTomorrow() {
+      let now = new Date();
+
+      let tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
+      let diff = tomorrow - now;
+
+      return Math.round(diff / 1000);
+    }
+  })()
+
+  !(() => {
+    // 格式化相对日期
+
+    console.log(formatDate(new Date("2012-12-01")))
+
+    function formatDate(date) {
+      let dayOfMonth = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      let hour = date.getHours();
+      let minutes = date.getMinutes();
+      let diffMs = new Date() - date;
+      let diffSec = Math.round(diffMs / 1000);
+      let diffMin = diffSec / 60;
+      let diffHour = diffMin / 60;
+
+      // 格式化
+      year = year.toString().slice(-2);
+      month = month < 10 ? '0' + month : month;
+      dayOfMonth = dayOfMonth < 10 ? '0' + dayOfMonth : dayOfMonth;
+
+      if (diffSec < 1) {
+        return 'right now';
+      } else if (diffMin < 1) {
+        return `${diffSec} sec. ago`
+      } else if (diffHour < 1) {
+        return `${diffMin} min. ago`
+      } else {
+        return `${dayOfMonth}.${month}.${year} ${hour}:${minutes}`
+      }
+    }
+  })()
+</script>

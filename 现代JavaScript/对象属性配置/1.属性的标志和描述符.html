@@ -1,0 +1,25 @@
+<script>
+  /*
+   * 对象属性除 value 外还有三个特殊属性（所谓的“标志”）：
+   * writable — 如果为 true，则可以修改，否则它是只读的。
+   * enumerable — 如果是 true，则可在循环中列出，否则不列出。
+   * configurable — 如果是 true，则此属性可以被删除，相应的特性也可以被修改，否则不可以。
+   */
+
+  let user = {};
+  // 修改标志
+  Object.defineProperty(user, 'name', {
+    value: 'john',
+    writable: true,
+    enumerable: true,
+    configurable: true
+  });
+  // 定义多个属性
+  Object.defineProperties(user, {
+    username: { value: "bob", writable: false },
+    surname: { value: "Smith", writable: false },
+  });
+  // 返回属性描述符对象
+  let descriptor = Object.getOwnPropertyDescriptor(user, 'name');
+  console.log(descriptor)
+</script>

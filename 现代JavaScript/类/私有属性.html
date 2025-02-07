@@ -1,0 +1,31 @@
+<script>
+  class CoffeeMachine {
+    _waterAmount = 0
+
+    set waterAmount(value) {
+      if(value < 0) throw new Error("Negative water")
+      this._waterAmount = value
+    }
+
+    get waterAmount() {
+      return this._waterAmount
+    }
+
+    constructor(power) {
+      this._power = power
+    }
+
+    get power() {
+      return this._power
+    }
+
+  }
+
+  // 创建咖啡机
+let coffeeMachine = new CoffeeMachine(100);
+
+alert(`Power is: ${coffeeMachine.power}W`); // 功率是：100W
+
+coffeeMachine.power = 25; // Error（没有 setter）
+
+</script>

@@ -1,0 +1,10 @@
+<script>
+  $(".keshi-url").each(function () {
+    location.href = this.href
+    $.ajax({
+      type: "Post",
+      url: "/index/course_task/do_finsh.html",
+      data: { id: 18334, classroomId: "2727" },
+    })
+  })
+</script>
